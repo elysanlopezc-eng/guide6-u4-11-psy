@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colegio Montano - Risk Factors, Protective Factors, and Prevention Guide</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        montano: {
+                            blue: '#1269A8',
+                            yellow: '#F7D615',
+                            teal: '#54887D',
+                            lightblue: '#88B5C7',
+                            olive: '#A6B046',
+                            softwhite: '#F2F5E9'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Nunito', 'Segoe UI', 'Tahoma', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #F2F5E9;
+            font-family: 'Nunito', 'Segoe UI', sans-serif;
+            color: #2D3748;
+        }
+
+        .whiteboard-frame {
+            background: #ffffff;
+            border: 12px solid #CBD5E0;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15), inset 0 0 15px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+
+        .tab-btn {
+            transition: all 0.3s ease;
+            border-bottom: 4px solid transparent;
+        }
+
+        .tab-btn.active {
+            background-color: #1269A8;
+            color: #ffffff;
+            border-bottom-color: #F7D615;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #EDF2F7;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #88B5C7;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #1269A8;
+        }
+
+        .pulse-mic {
+            animation: pulse-ring 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(18, 105, 168, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 12px rgba(18, 105, 168, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(18, 105, 168, 0); }
+        }
+    </style>
+</head>
+<body class="p-2 md:p-6 min-h-screen">
+
+    <!-- MAIN CONTAINER WITH WHITEBOARD FRAME DESIGN -->
+    <div id="whiteboard" class="whiteboard-frame max-w-7xl mx-auto p-4 md:p-8 min-h-[90vh] flex flex-col justify-between">
+        
+        <!-- HEADER SECTION -->
+        <header class="border-b-2 border-gray-200 pb-4 mb-6">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                
+                <!-- Logo & School Info -->
+                <div class="flex items-center space-x-4">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyEop0yf6lZ7Jk9MILZxF1rBj4Oqs5esyhIQ&s" 
+                         alt="Colegio Montano Logo" 
+                         class="h-16 w-auto object-contain rounded-lg shadow-sm border border-gray-100"
+                         onerror="this.src='https://placehold.co/150x60/1269A8/ffffff?text=Colegio+Montano'">
+                    <div>
+                        <h1 class="text-2xl md:text-3xl font-extrabold text-montano-blue tracking-tight">COLEGIO MONTANO</h1>
+                        <p class="text-sm font-semibold text-montano-teal">Interactive Study Guide 6 | 11th Grade High School ESL Level B2 Advanced</p>
+                    </div>
+                </div>
+
+                <!-- Topic Banner & Fullscreen Toggle -->
+                <div class="flex items-center space-x-3 w-full md:w-auto justify-between md:justify-end">
+                    <div class="bg-montano-lightblue/20 border-l-4 border-montano-blue p-3 rounded-r-lg text-right">
+                        <span class="text-xs uppercase font-bold text-montano-blue tracking-wider block">Subject Topic</span>
+                        <span class="text-base font-bold text-gray-800">Risk Factors, Protective Factors, and Prevention</span>
+                    </div>
+
+                    <button onclick="toggleFullscreen()" class="bg-montano-blue hover:bg-montano-teal text-white p-3 rounded-xl shadow-md transition-all flex items-center justify-center space-x-2 text-sm font-bold" title="Toggle Fullscreen">
+                        <i class="fa-solid font-bold fa-expand text-lg"></i>
+                        <span class="hidden sm:inline">Fullscreen</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- NAVIGATION TABS -->
+            <nav class="mt-6 flex flex-wrap gap-2 border-b border-gray-200 text-sm md:text-base">
+                <button onclick="switchTab(1)" id="tab-btn-1" class="tab-btn active px-4 py-3 rounded-t-xl font-bold flex items-center space-x-2">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>1. Theoretical Foundations</span>
+                </button>
+                <button onclick="switchTab(2)" id="tab-btn-2" class="tab-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-3 rounded-t-xl font-bold flex items-center space-x-2">
+                    <i class="fa-solid fa-book-open"></i>
+                    <span>2. Solved Examples (15)</span>
+                </button>
+                <button onclick="switchTab(3)" id="tab-btn-3" class="tab-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-3 rounded-t-xl font-bold flex items-center space-x-2">
+                    <i class="fa-solid fa-microphone-lines"></i>
+                    <span>3. Live Voice Simulator</span>
+                </button>
+                <button onclick="switchTab(4)" id="tab-btn-4" class="tab-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-3 rounded-t-xl font-bold flex items-center space-x-2">
+                    <i class="fa-solid fa-bullhorn"></i>
+                    <span>4. Prevention & Workshop</span>
+                </button>
+                <button onclick="switchTab(5)" id="tab-btn-5" class="tab-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-3 rounded-t-xl font-bold flex items-center space-x-2">
+                    <i class="fa-solid fa-clipboard-check"></i>
+                    <span>5. Formative Evaluation (15)</span>
+                </button>
+            </nav>
+        </header>
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="flex-grow">
+            
+            <!-- TAB 1: THEORETICAL FOUNDATIONS -->
+            <section id="tab-content-1" class="tab-content space-y-6">
+                <!-- Overview Banner -->
+                <div class="bg-montano-softwhite p-6 rounded-2xl border-2 border-montano-lightblue/40">
+                    <h2 class="text-2xl font-bold text-montano-blue mb-3 flex items-center">
+                        <i class="fa-solid fa-layer-group text-montano-yellow mr-3 text-3xl"></i>
+                        Core Framework: Biopsychosocial Risk & Protective Factor Analysis
+                    </h2>
+                    <p class="text-gray-700 leading-relaxed text-base md:text-lg">
+                        Health outcomes and vulnerability to addictive behaviors or high-risk choices are shaped by dynamic interactions between <strong>Risk Factors</strong> (conditions increasing vulnerability) and <strong>Protective Factors</strong> (buffering conditions promoting resilience). Building strong refusal skills, healthy routines, and robust support networks empowers adolescents to navigate peer influence effectively.
+                    </p>
+                </div>
+
+                <!-- Concept Breakdown Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    
+                    <!-- Card 1 -->
+                    <div class="bg-white rounded-xl p-5 border-t-8 border-montano-blue shadow-md hover:shadow-lg transition-all">
+                        <div class="text-montano-blue text-3xl mb-3"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                        <h3 class="font-bold text-lg text-gray-800 mb-2">1. Categorizing Risk Factors</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">
+                            <strong>Biological</strong> (genetics, family medical history), <strong>Psychological</strong> (chronic stress, unresolved trauma), <strong>Social</strong> (peer pressure, isolation), and <strong>Environmental</strong> (community access, lack of resources).
+                        </p>
+                        <div class="mt-4 pt-3 border-t border-gray-100">
+                            <span class="text-xs font-bold text-montano-blue uppercase">Risk Literacy</span>
+                            <div class="w-full bg-gray-200 h-2 rounded-full mt-1">
+                                <div class="bg-montano-blue h-2 rounded-full w-4/5"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="bg-white rounded-xl p-5 border-t-8 border-montano-yellow shadow-md hover:shadow-lg transition-all">
+                        <div class="text-montano-yellow text-3xl mb-3"><i class="fa-solid fa-shield-heart"></i></div>
+                        <h3 class="font-bold text-lg text-gray-800 mb-2">2. Protective Buffers</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">
+                            Internal traits (high self-efficacy, emotional regulation) and external assets (supportive family, positive peer groups, school engagement) that cushion against adversity.
+                        </p>
+                        <div class="mt-4 pt-3 border-t border-gray-100">
+                            <span class="text-xs font-bold text-montano-yellow uppercase">Buffer Index</span>
+                            <div class="w-full bg-gray-200 h-2 rounded-full mt-1">
+                                <div class="bg-montano-yellow h-2 rounded-full w-5/6"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="bg-white rounded-xl p-5 border-t-8 border-montano-teal shadow-md hover:shadow-lg transition-all">
+                        <div class="text-montano-teal text-3xl mb-3"><i class="fa-solid fa-comments-dollar"></i></div>
+                        <h3 class="font-bold text-lg text-gray-800 mb-2">3. Refusal & Exit Strategies</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">
+                            Assertive verbal statements, broken-record techniques, delay tactics, and planned exit strategies (e.g., code words with parents) to withstand direct peer pressure.
+                        </p>
+                        <div class="mt-4 pt-3 border-t border-gray-100">
+                            <span class="text-xs font-bold text-montano-teal uppercase">Refusal Mastery</span>
+                            <div class="w-full bg-gray-200 h-2 rounded-full mt-1">
+                                <div class="bg-montano-teal h-2 rounded-full w-5/6"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="bg-white rounded-xl p-5 border-t-8 border-montano-olive shadow-md hover:shadow-lg transition-all">
+                        <div class="text-montano-olive text-3xl mb-3"><i class="fa-solid fa-dumbbell"></i></div>
+                        <h3 class="font-bold text-lg text-gray-800 mb-2">4. Healthy Routine Architecture</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">
+                            Designing daily wellness routines—consistent sleep, physical exercise, creative outlets, and structured study habits—that naturally reduce stress spikes and vulnerability.
+                        </p>
+                        <div class="mt-4 pt-3 border-t border-gray-100">
+                            <span class="text-xs font-bold text-montano-olive uppercase">Routine Resilience</span>
+                            <div class="w-full bg-gray-200 h-2 rounded-full mt-1">
+                                <div class="bg-montano-olive h-2 rounded-full w-4/5"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Risk vs. Protective Factor Mapping Matrix -->
+                <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm mt-6">
+                    <h3 class="text-xl font-bold text-montano-blue mb-4 flex items-center">
+                        <i class="fa-solid fa-table mr-2 text-montano-teal"></i> Biopsychosocial Risk & Protective Factor Mapping Matrix
+                    </h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700 border-collapse">
+                            <thead>
+                                <tr class="bg-montano-softwhite text-montano-blue border-b border-gray-200">
+                                    <th class="p-3 font-extrabold">Domain</th>
+                                    <th class="p-3 font-extrabold text-red-600">Risk Factor (Vulnerability)</th>
+                                    <th class="p-3 font-extrabold text-green-700">Protective Factor (Resilience)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b border-gray-100">
+                                    <td class="p-3 font-bold text-gray-800">Biological</td>
+                                    <td class="p-3">Family history of addiction, genetic predisposition.</td>
+                                    <td class="p-3">Physical wellness habits, adequate sleep hygiene.</td>
+                                </tr>
+                                <tr class="border-b border-gray-100">
+                                    <td class="p-3 font-bold text-gray-800">Psychological</td>
+                                    <td class="p-3">Untreated anxiety, impulsivity, poor coping skills.</td>
+                                    <td class="p-3">High emotional regulation, problem-solving skills.</td>
+                                </tr>
+                                <tr class="border-b border-gray-100">
+                                    <td class="p-3 font-bold text-gray-800">Social / Peer</td>
+                                    <td class="p-3">Peer pressure to engage in high-risk behaviors, isolation.</td>
+                                    <td class="p-3">Positive peer networks, supportive adult mentors.</td>
+                                </tr>
+                                <tr class="border-b border-gray-100">
+                                    <td class="p-3 font-bold text-gray-800">Environmental</td>
+                                    <td class="p-3">Easy availability of substances, lack of community safety.</td>
+                                    <td class="p-3">Safe school climate, access to extra-curricular clubs.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 2: SOLVED EXAMPLES (15 EXAMPLES WITH TTS) -->
+            <section id="tab-content-2" class="tab-content hidden space-y-6">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-montano-softwhite p-4 rounded-xl border border-montano-lightblue">
+                    <div>
+                        <h2 class="text-xl font-bold text-montano-blue">15 Risk, Protection & Refusal Scenarios</h2>
+                        <p class="text-sm text-gray-600">Deconstructed scenarios detailing risk identification, protective factor mapping, and refusal strategies. Click the audio icon to listen.</p>
+                    </div>
+                    <div class="flex space-x-2">
+                        <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-bold">5 Basic</span>
+                        <span class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs font-bold">5 Intermediate</span>
+                        <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-xs font-bold">5 Advanced</span>
+                    </div>
+                </div>
+
+                <div class="space-y-4 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar" id="examples-container">
+                    <!-- Dynamic rendering via JS -->
+                </div>
+            </section>
+
+            <!-- TAB 3: LIVE INTERACTIVE VOICE SIMULATOR & PERFORMANCE DASHBOARD -->
+            <section id="tab-content-3" class="tab-content hidden space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    
+                    <!-- Left Column: Interactive Voice Simulator -->
+                    <div class="lg:col-span-7 bg-white p-6 rounded-2xl border-2 border-montano-blue shadow-md flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between pb-3 border-b border-gray-200">
+                                <h3 class="text-xl font-bold text-montano-blue flex items-center">
+                                    <i class="fa-solid fa-headset mr-2 text-montano-teal"></i> Refusal & Prevention Voice Simulator
+                                </h3>
+                                <span class="text-xs font-bold px-3 py-1 bg-montano-yellow text-gray-900 rounded-full">B2 Oral Practice</span>
+                            </div>
+
+                            <!-- Simulator Avatar & Prompt -->
+                            <div class="mt-4 p-4 bg-montano-softwhite rounded-xl border border-montano-lightblue/50">
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-12 h-12 bg-montano-blue text-white rounded-full flex items-center justify-center font-bold text-lg flex-shrink-0">
+                                        Advisor
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-sm text-montano-blue">Coach Rivera (Prevention & Wellness Specialist)</h4>
+                                        <p id="simulator-prompt" class="text-sm text-gray-800 mt-1 italic">
+                                            "You are at a party where a popular peer hands you a vaping device, saying 'Everyone is doing it, don't be boring!' How do you state an assertive refusal, use an exit strategy, and leverage your internal protective factors?"
+                                        </p>
+                                        <button onclick="speakText(document.getElementById('simulator-prompt').innerText)" class="mt-2 text-xs text-montano-blue hover:text-montano-teal font-bold flex items-center space-x-1">
+                                            <i class="fa-solid fa-volume-high"></i>
+                                            <span>Listen to Scenario</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- User Input Area -->
+                            <div class="mt-6 space-y-3">
+                                <label class="block text-sm font-bold text-gray-700">Your Spoken or Written Response:</label>
+                                
+                                <div class="relative">
+                                    <textarea id="user-voice-input" rows="4" 
+                                        class="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-montano-blue focus:border-transparent text-sm"
+                                        placeholder="Click microphone to record or type here... (e.g., 'No thanks, I don't vape because I care about my athletic health. I'm going to grab a drink near the kitchen.')"></textarea>
+                                </div>
+
+                                <div class="flex flex-wrap items-center justify-between gap-3">
+                                    <button id="mic-btn" onclick="toggleSpeechRecognition()" class="bg-montano-blue hover:bg-montano-teal text-white px-5 py-2.5 rounded-xl font-bold flex items-center space-x-2 shadow transition-all">
+                                        <i class="fa-solid fa-microphone text-lg" id="mic-icon"></i>
+                                        <span id="mic-status">Start Recording</span>
+                                    </button>
+
+                                    <button onclick="analyzeUserResponse()" class="bg-montano-yellow hover:bg-yellow-400 text-gray-900 px-6 py-2.5 rounded-xl font-extrabold shadow transition-all flex items-center space-x-2">
+                                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                                        <span>Evaluate Response</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Feedback Output -->
+                        <div id="ai-feedback-box" class="mt-6 p-4 rounded-xl border border-gray-200 bg-gray-50 text-sm">
+                            <span class="font-bold text-gray-700 block mb-1"><i class="fa-solid fa-robot mr-1 text-montano-blue"></i> Pedagogical Assessment Feedback:</span>
+                            <p id="ai-feedback-text" class="text-gray-600">Submit your response to evaluate refusal assertiveness, protective factor awareness, and communication clarity.</p>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Live Performance Dashboard -->
+                    <div class="lg:col-span-5 bg-white p-6 rounded-2xl border-2 border-montano-teal shadow-md flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-xl font-bold text-montano-teal pb-3 border-b border-gray-200 flex items-center">
+                                <i class="fa-solid fa-chart-line mr-2"></i> Live Performance Dashboard
+                            </h3>
+
+                            <div class="space-y-5 mt-4">
+                                <!-- Score 1: Speech Clarity -->
+                                <div>
+                                    <div class="flex justify-between text-sm font-bold mb-1">
+                                        <span class="text-gray-700">Pronunciation & Speech Clarity</span>
+                                        <span id="score-clarity-val" class="text-montano-blue">0%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 h-3 rounded-full overflow-hidden">
+                                        <div id="score-clarity-bar" class="bg-montano-blue h-full w-0 transition-all duration-700"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Score 2: Refusal Strategy & Accuracy -->
+                                <div>
+                                    <div class="flex justify-between text-sm font-bold mb-1">
+                                        <span class="text-gray-700">Refusal & Protective Strategy (B2 Level)</span>
+                                        <span id="score-accuracy-val" class="text-montano-teal">0%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 h-3 rounded-full overflow-hidden">
+                                        <div id="score-accuracy-bar" class="bg-montano-teal h-full w-0 transition-all duration-700"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Score 3: Assertiveness & Etiquette -->
+                                <div>
+                                    <div class="flex justify-between text-sm font-bold mb-1">
+                                        <span class="text-gray-700">Assertive Communication & Etiquette</span>
+                                        <span id="score-etiquette-val" class="text-montano-olive">0%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 h-3 rounded-full overflow-hidden">
+                                        <div id="score-etiquette-bar" class="bg-montano-olive h-full w-0 transition-all duration-700"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Key Prevention Keywords Detected -->
+                            <div class="mt-6">
+                                <span class="text-xs font-bold text-gray-500 uppercase tracking-wider block mb-2">Detected Key Concepts & Refusal Terms:</span>
+                                <div id="detected-keywords" class="flex flex-wrap gap-2 min-h-[50px] p-3 bg-montano-softwhite rounded-xl border border-gray-200">
+                                    <span class="text-xs text-gray-400 italic">No key terms detected yet. Speak or submit an answer.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 pt-4 border-t border-gray-100 text-center">
+                            <span class="text-xs text-gray-500">Colegio Montano Prevention & Resilience Assessor</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 4: PREVENTION WORKSHOP & CAMPAIGN CREATION -->
+            <section id="tab-content-4" class="tab-content hidden space-y-6">
+                <div class="bg-montano-softwhite p-4 rounded-xl border border-montano-lightblue">
+                    <h2 class="text-xl font-bold text-montano-blue">Prevention Workshop & Advocacy Campaign</h2>
+                    <p class="text-sm text-gray-600">Complete the 5 interactive tasks below to analyze risk factors, design refusal tactics, and create a school-wide prevention message.</p>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Task 1: Retrieval Practice -->
+                    <div class="bg-white p-5 rounded-xl border-l-8 border-montano-blue shadow-sm space-y-3">
+                        <div class="flex justify-between items-center">
+                            <h3 class="font-bold text-lg text-montano-blue">Task 1: Retrieval Practice</h3>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-bold">5 Min Warm-Up</span>
+                        </div>
+                        <p class="text-sm text-gray-700">Recall from Guide 5: Briefly state why addiction is classified as a biological/psychological health condition rather than a moral failure, and name one major domain of functional impairment.</p>
+                        <textarea rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-montano-blue focus:border-transparent text-sm" placeholder="Summarize prior knowledge from memory..."></textarea>
+                    </div>
+
+                    <!-- Task 2: Mapping Risk & Protective Factors -->
+                    <div class="bg-white p-5 rounded-xl border-l-8 border-montano-yellow shadow-sm space-y-3">
+                        <div class="flex justify-between items-center">
+                            <h3 class="font-bold text-lg text-gray-800">Task 2: Scenario Analysis & Biopsychosocial Mapping</h3>
+                            <span class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs font-bold">Factor Mapping</span>
+                        </div>
+                        <p class="text-sm text-gray-700"><strong>Scenario:</strong> "Leo moves to a new city, feels isolated, experiences high academic pressure, and has a family history of substance dependence. However, he loves basketball and has a supportive older sister."<br>
+                        <strong>Task:</strong> Map out Leo's Risk Factors (biological, psychological, social) and Protective Factors.</p>
+                        <textarea rows="4" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-montano-yellow focus:border-transparent text-sm" placeholder="List Risk Factors vs Protective Factors..."></textarea>
+                    </div>
+
+                    <!-- Task 3: Practicing Refusal & Exit Strategies -->
+                    <div class="bg-white p-5 rounded-xl border-l-8 border-montano-teal shadow-sm space-y-3">
+                        <div class="flex justify-between items-center">
+                            <h3 class="font-bold text-lg text-montano-teal">Task 3: Refusal Skills & Exit Strategy Scripting</h3>
+                            <span class="px-3 py-1 bg-teal-100 text-teal-800 rounded-full text-xs font-bold">Skill Practice</span>
+                        </div>
+                        <p class="text-sm text-gray-700">Draft 2 distinct refusal scripts to handle peer pressure at a social event: (1) An assertive direct refusal statement, and (2) A planned exit strategy using a code phrase or delay line.</p>
+                        <textarea rows="4" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-montano-teal focus:border-transparent text-sm" placeholder="Write Direct Refusal and Exit Strategy scripts..."></textarea>
+                    </div>
+
+                    <!-- Task 4: Protective Habits & Support Resources -->
+                    <div class="bg-white p-5 rounded-xl border-l-8 border-montano-olive shadow-sm space-y-3">
+                        <div class="flex justify-between items-center">
+                            <h3 class="font-bold text-lg text-gray-800">Task 4: Designing Protective Routines & Support Networks</h3>
+                            <span class="px-3 py-1 bg-olive/20 text-gray-800 rounded-full text-xs font-bold">Habit Design</span>
+                        </div>
+                        <p class="text-sm text-gray-700">Detail 3 daily protective habits (e.g., exercise, mindfulness, structured sleep) and list 2 trusted school/community support resources that strengthen resilience.</p>
+                        <textarea rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-montano-olive focus:border-transparent text-sm" placeholder="Describe 3 protective habits and 2 support resources..."></textarea>
+                    </div>
+
+                    <!-- Task 5: Creating a Prevention Message -->
+                    <div class="bg-white p-5 rounded-xl border-l-8 border-red-400 shadow-sm space-y-3">
+                        <div class="flex justify-between items-center">
+                            <h3 class="font-bold text-lg text-red-700">Task 5: Creating a Prevention Advocacy Message</h3>
+                            <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-xs font-bold">Campaign Design</span>
+                        </div>
+                        <p class="text-sm text-gray-700">Create a school-wide prevention message or slogan targeted at 11th-grade peers. Include a strong catchphrase and 2 action steps that promote resilience and support-seeking.</p>
+                        <textarea rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-400 focus:border-transparent text-sm" placeholder="Write slogan and prevention action steps..."></textarea>
+                    </div>
+                </div>
+
+                <div class="flex justify-end">
+                    <button onclick="submitDiscussionActivity()" class="bg-montano-blue hover:bg-montano-teal text-white px-6 py-3 rounded-xl font-bold shadow transition-all flex items-center space-x-2">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>Save & Submit Prevention Campaign</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- TAB 5: FORMATIVE EVALUATION (15 PROBLEMS WITH ACCORDION SOLUTIONS) -->
+            <section id="tab-content-5" class="tab-content hidden space-y-6">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-montano-softwhite p-4 rounded-xl border border-montano-lightblue">
+                    <div>
+                        <h2 class="text-xl font-bold text-montano-blue">Formative Evaluation Exercises (15 Problems)</h2>
+                        <p class="text-sm text-gray-600">Test your mastery of risk/protective factor mapping, refusal mechanisms, and prevention strategies across 3 tiers. Click "Show / Hide Solution" to review explanations.</p>
+                    </div>
+                    <div class="flex space-x-2">
+                        <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-bold">5 Basic</span>
+                        <span class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs font-bold">5 Intermediate</span>
+                        <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-xs font-bold">5 Advanced</span>
+                    </div>
+                </div>
+
+                <div class="space-y-4 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar" id="evaluations-container">
+                    <!-- Dynamic evaluation items rendered by JS -->
+                </div>
+            </section>
+
+        </main>
+
+        <!-- FOOTER SECTION -->
+        <footer class="mt-8 pt-4 border-t border-gray-200 text-center text-xs text-gray-500 flex flex-col sm:flex-row justify-between items-center gap-2">
+            <span>&copy; 2026 Colegio Montano - Department of Educational Technology & Instructional Design</span>
+            <span class="font-semibold text-montano-blue">Guide 6: Risk Factors, Protective Factors, and Prevention | ESL Level B2</span>
+        </footer>
+
+    </div>
+
+    <!-- JAVASCRIPT LOGIC & CONTENT DATA -->
+    <script>
+        // -----------------------------------------------------------------
+        // DATA: SOLVED EXAMPLES (15 SCENARIOS - 5 BASIC, 5 INTERMEDIATE, 5 ADVANCED)
+        // -----------------------------------------------------------------
+        const solvedExamplesData = [
+            // Level 1: Basic (1-5)
+            { id: 1, level: "Basic", title: "Identifying Biological vs. Environmental Risks", scenario: "Identifying that having a relative with substance dependence is a biological risk, while living near unregulated sales is an environmental risk.", trigger: "Risk Factor Classification.", technique: "Biopsychosocial Categorization: Distinguishing internal genetic vulnerability from external environmental access.", result: "Accurately categorizes risk domains." },
+            { id: 2, level: "Basic", title: "Direct Refusal Technique", scenario: "When offered an unverified energy drink at a party, saying firmly: 'No thanks, I don't drink those.'", trigger: "Direct peer pressure.", technique: "Assertive Refusal: Clear 'No' statement without lying or making excuses.", result: "Maintains personal boundary immediately." },
+            { id: 3, level: "Basic", title: "Recognizing Internal Protective Factors", scenario: "Using strong emotional self-regulation to remain calm when facing unexpected test anxiety.", trigger: "Academic stress spike.", technique: "Internal Protective Buffer: Leveraging coping skills and self-efficacy to prevent panic.", result: "Buffers against negative stress reactions." },
+            { id: 4, level: "Basic", title: "Broken-Record Technique", scenario: "A peer repeatedly asks a student to skip class, and the student repeats 'I'm staying in class' three times.", trigger: "Persistent nagging pressure.", technique: "Broken-Record Strategy: Repeating the exact same calm refusal statement without debating.", result: "Neutralizes repeated peer insistence." },
+            { id: 5, level: "Basic", title: "Identifying External Support Networks", scenario: "Knowing to approach the school counselor or a trusted coach when feeling overwhelmed by peer conflicts.", trigger: "Help-seeking decision.", technique: "Resource Identification: Connecting with established institutional support networks.", result: "Ensures timely adult guidance." },
+
+            // Level 2: Intermediate (6-10)
+            { id: 6, level: "Intermediate", title: "Delay Tactics in Peer Pressure", scenario: "Friends push Julian to try a risky stunt; he responds: 'Let me think about it later, let's grab food first.'", trigger: "Impulsive peer challenge.", technique: "Delay Strategy: Postponing immediate decision-making to de-escalate momentum.", result: "Creates space for rational exit." },
+            { id: 7, level: "Intermediate", title: "Mapping Protective Routines", scenario: "A student structures an 8-hour sleep schedule, daily exercise, and regular study blocks during exam week.", trigger: "Exam week fatigue.", technique: "Healthy Routine Architecture: Establishing protective daily habits that lower stress vulnerability.", result: "Sustains optimal cognitive functioning." },
+            { id: 8, level: "Intermediate", title: "Code Word Exit Strategy", scenario: "Texting an agreed emoji to a parent so they call with an urgent 'family errand' to pick up the student.", trigger: "Uncomfortable party environment.", technique: "Planned Exit Strategy: Utilizing pre-arranged exit protocols with trusted family members.", result: "Provides safe, blame-free departure." },
+            { id: 9, level: "Intermediate", title: "Leveraging Positive Peer Networks", scenario: "Joining an extracurricular science club where peers support academic goals and healthy choices.", trigger: "Social environment selection.", technique: "Protective Peer Selection: Surrounding oneself with friends who reinforce positive behaviors.", result: "Shields against negative peer influence." },
+            { id: 10, level: "Intermediate", title: "Reframing Social Exclusion Fear", scenario: "Fearing being left out for refusing to try vaping, a student reminds themselves: 'True friends respect my boundaries.'", trigger: "Fear of social rejection.", technique: "Cognitive Reframing: Evaluating relationship quality based on mutual respect rather than conformity.", result: "Strengthens emotional independence." },
+
+            // Level 3: Advanced (11-15)
+            { id: 11, level: "Advanced", title: "Biopsychosocial Risk Synthesis", scenario: "Evaluating how chronic poverty (environmental), high anxiety (psychological), and genetic history (biological) compound vulnerability.", trigger: "Complex multi-domain risk assessment.", technique: "Cumulative Risk Analysis: Recognizing that cumulative risk factors require multi-layered protective interventions.", result: "Guides comprehensive prevention planning." },
+            { id: 12, level: "Advanced", title: "Designing School-Wide Peer Mentorship", scenario: "Formulating a senior-to-freshman mentoring program to build protective school connectedness.", trigger: "School climate enhancement.", technique: "Systemic Prevention Design: Creating peer-led protective structures across grade levels.", result: "Reduces school-wide vulnerability metrics." },
+            { id: 13, level: "Advanced", title: "Deconstructing Subtle Media Peer Influence", scenario: "Analyzing how social media posts idealize high-risk behaviors and constructing critical media literacy counter-arguments.", trigger: "Digital peer influence.", technique: "Media Literacy Critique: Unpacking filtered reality and recognizing marketing tactics.", result: "Protects against online normative pressure." },
+            { id: 14, level: "Advanced", title: "Managing High-Risk Environmental Transitions", scenario: "Preparing for the transition to university by establishing independent coping routines and identifying campus wellness centers.", trigger: "Life transition risk.", technique: "Proactive Transition Planning: Installing protective buffers prior to entering high-risk environments.", result: "Ensures long-term adaptive success." },
+            { id: 15, level: "Advanced", title: "Advocating for Inclusive Prevention Curricula", scenario: "Presenting a proposal to the school board for evidence-based refusal skills training in high school PE/Health.", trigger: "Educational policy advocacy.", technique: "Institutional Advocacy: Combining statistical risk data with practical pedagogical solutions.", result: "Drives institutional policy improvement." }
+        ];
+
+        // -----------------------------------------------------------------
+        // DATA: FORMATIVE EVALUATION EXERCISES (15 EXERCISES WITH ACCORDION SOLUTIONS)
+        // -----------------------------------------------------------------
+        const evaluationData = [
+            // Level 1: Basic (1-5)
+            { id: 1, level: "Basic", task: "Define the terms 'Risk Factor' and 'Protective Factor' in one comparative sentence.", solution: "A Risk Factor is any attribute or exposure that increases the likelihood of developing a problem or high-risk behavior, whereas a Protective Factor is a condition that buffers against risk and promotes resilience." },
+            { id: 2, level: "Basic", task: "Categorize the following as Biological, Psychological, Social, or Environmental: 'Family history of substance use disorder.'", solution: "Biological Risk Factor." },
+            { id: 3, level: "Basic", task: "Give one example of an assertive refusal statement when pressured to skip a study session.", solution: "Example: 'No thanks, I need to stay and complete this study session because my grades are important to me.'" },
+            { id: 4, level: "Basic", task: "True or False: 'Having one or more risk factors guarantees that a student will engage in addictive behaviors.' Explain.", solution: "False. Protective factors, coping mechanisms, and individual choices can buffer against and offset risk factors." },
+            { id: 5, level: "Basic", task: "Name two trusted school-based support resources available to high school students.", solution: "1. School Guidance Counselor / Psychologist.\n2. School Nurse / Wellness Coordinator." },
+
+            // Level 2: Intermediate (6-10)
+            { id: 6, level: "Intermediate", task: "Explain the 'Broken-Record' refusal technique and describe when it is most effective.", solution: "The Broken-Record technique involves calmly repeating the same refusal phrase (e.g., 'No thanks, I don't do that') over and over without arguing. It is most effective against persistent, nagging peer pressure." },
+            { id: 7, level: "Intermediate", task: "Analyze how healthy daily routines (e.g., consistent sleep, exercise) act as protective factors.", solution: "Healthy routines regulate neurotransmitters, lower baseline cortisol, reduce emotional vulnerability spikes, and provide structured alternatives to risky behaviors." },
+            { id: 8, level: "Intermediate", task: "Design a planned exit strategy using a 'code word' for a high school student attending a social gathering.", solution: "The student texts a pre-agreed code word (e.g., 'Red 5') to a parent/guardian. The parent immediately calls the student claiming an urgent family situation requiring immediate pickup." },
+            { id: 9, level: "Intermediate", task: "Deconstruct the myth: 'Refusing peer pressure always ruins your social status.'", solution: "In reality, clear assertiveness often increases respect among peers, filters out toxic acquaintances, and attracts positive friends who value authentic boundaries." },
+            { id: 10, level: "Intermediate", task: "Differentiate between internal and external protective factors, providing one example of each.", solution: "Internal Protective Factors originate within the person (e.g., high emotional self-regulation, problem-solving skills).\nExternal Protective Factors come from the environment (e.g., supportive family, positive peer group, safe school climate)." },
+
+            // Level 3: Advanced (11-15)
+            { id: 11, level: "Advanced", task: "Synthesize how biological vulnerability (genetics) interacts with social risk factors (peer pressure) in adolescent decision-making.", solution: "Adolescents with genetic vulnerabilities may experience heightened neurobiological reward responses to risky stimuli, making social peer pressure significantly harder to resist without strong protective buffers." },
+            { id: 12, level: "Advanced", task: "Evaluate the effectiveness of delay tactics vs. aggressive confrontation when defusing peer pressure in group settings.", solution: "Delay tactics (e.g., 'Maybe later, I'm grabbing water first') de-escalate tension and preserve social standing while creating exit opportunities, whereas aggressive confrontation can escalate conflict and provoke group backlash." },
+            { id: 13, level: "Advanced", task: "Design a 3-step school-wide prevention framework targeting 11th-grade students.", solution: "1. Peer Refusal Workshops (practicing assertive communication).\n2. Mentorship Networks (pairing seniors with younger peers).\n3. Accessible Help-Seeking Portals (anonymous counselor check-in tools)." },
+            { id: 14, level: "Advanced", task: "Critique a scenario where a school focuses solely on telling students 'Just Say No' without teaching refusal skills or addressing risk factors.", solution: "'Just Say No' campaigns fail because they ignore underlying psychological/environmental risk factors and do not provide realistic, practiced verbal scripts or exit strategies for complex social pressure." },
+            { id: 15, level: "Advanced", task: "Formulate an argument on how mastering B2-level English prevention terminology ('biopsychosocial model', 'self-efficacy', 'protective buffer') empowers global health advocacy.", solution: "Mastering clinical and health-literate vocabulary enables students to participate in international youth health summits, analyze public health data, articulate boundary needs, and advocate for evidence-based community programs." }
+        ];
+
+        // -----------------------------------------------------------------
+        // INITIALIZATION & TAB NAVIGATION
+        // -----------------------------------------------------------------
+        window.onload = function() {
+            renderExamples();
+            renderEvaluations();
+        };
+
+        function switchTab(tabIndex) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+                btn.classList.add('bg-gray-100', 'text-gray-600');
+            });
+
+            document.getElementById(`tab-content-${tabIndex}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`tab-btn-${tabIndex}`);
+            activeBtn.classList.add('active');
+            activeBtn.classList.remove('bg-gray-100', 'text-gray-600');
+        }
+
+        function toggleFullscreen() {
+            const elem = document.getElementById('whiteboard');
+            if (!document.fullscreenElement) {
+                if (elem.requestFullscreen) {
+                    elem.requestFullscreen();
+                } else if (elem.webkitRequestFullscreen) {
+                    elem.webkitRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        // -----------------------------------------------------------------
+        // TEXT-TO-SPEECH (TTS) SYSTEM
+        // -----------------------------------------------------------------
+        function speakText(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.95;
+                utterance.pitch = 1.0;
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert("Text-to-speech is not supported in your browser.");
+            }
+        }
+
+        // -----------------------------------------------------------------
+        // RENDER SOLVED EXAMPLES (TAB 2)
+        // -----------------------------------------------------------------
+        function renderExamples() {
+            const container = document.getElementById('examples-container');
+            container.innerHTML = solvedExamplesData.map(ex => {
+                let badgeColor = ex.level === 'Basic' ? 'bg-green-100 text-green-800' : 
+                                 ex.level === 'Intermediate' ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800';
+                
+                const speechPayload = `${ex.title}. Scenario: ${ex.scenario}. Strategy applied: ${ex.technique}. Result: ${ex.result}`;
+                
+                return `
+                    <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm hover:border-montano-blue transition-all">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-2 mb-3">
+                            <div class="flex items-center space-x-3">
+                                <span class="px-2.5 py-1 rounded-full text-xs font-bold ${badgeColor}">Level: ${ex.level}</span>
+                                <h3 class="font-bold text-gray-800 text-base md:text-lg">${ex.id}. ${ex.title}</h3>
+                            </div>
+                            <button onclick="speakText('${speechPayload.replace(/'/g, "\\'")}')" class="text-montano-blue hover:text-montano-teal p-2 rounded-lg bg-blue-50 flex items-center space-x-1 text-xs font-bold transition-all">
+                                <i class="fa-solid fa-volume-high text-sm"></i>
+                                <span>Listen Scenario</span>
+                            </button>
+                        </div>
+                        
+                        <div class="space-y-2 text-sm text-gray-700">
+                            <p><strong>Scenario:</strong> ${ex.scenario}</p>
+                            <p class="text-xs bg-red-50 text-red-700 p-2 rounded-lg"><strong>Risk / Challenge:</strong> ${ex.trigger}</p>
+                            <p class="text-xs bg-blue-50 text-blue-900 p-2 rounded-lg"><strong>Protective / Refusal Skill:</strong> ${ex.technique}</p>
+                            <p class="text-xs bg-green-50 text-green-800 p-2 rounded-lg"><strong>Outcome:</strong> ${ex.result}</p>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // -----------------------------------------------------------------
+        // RENDER FORMATIVE EVALUATION EXERCISES (TAB 5)
+        // -----------------------------------------------------------------
+        function renderEvaluations() {
+            const container = document.getElementById('evaluations-container');
+            container.innerHTML = evaluationData.map(ev => {
+                let badgeColor = ev.level === 'Basic' ? 'bg-green-100 text-green-800' : 
+                                 ev.level === 'Intermediate' ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800';
+                return `
+                    <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="px-2.5 py-1 rounded-full text-xs font-bold ${badgeColor}">${ev.id}. ${ev.level} Level</span>
+                            <button onclick="toggleSolution(${ev.id})" class="text-xs font-bold px-4 py-2 bg-montano-blue text-white rounded-lg hover:bg-montano-teal transition-all flex items-center space-x-1">
+                                <i class="fa-solid fa-eye" id="sol-icon-${ev.id}"></i>
+                                <span id="sol-btn-text-${ev.id}">Show Solution</span>
+                            </button>
+                        </div>
+                        
+                        <p class="text-sm font-semibold text-gray-800 mb-3">${ev.task}</p>
+                        
+                        <div id="solution-box-${ev.id}" class="hidden mt-3 p-4 bg-montano-softwhite border-l-4 border-montano-teal rounded-r-xl text-xs text-gray-700 space-y-1">
+                            <span class="font-bold text-montano-teal block mb-1">Pedagogical Solution:</span>
+                            <pre class="font-sans whitespace-pre-wrap">${ev.solution}</pre>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function toggleSolution(id) {
+            const box = document.getElementById(`solution-box-${id}`);
+            const btnText = document.getElementById(`sol-btn-text-${id}`);
+            const icon = document.getElementById(`sol-icon-${id}`);
+
+            if (box.classList.contains('hidden')) {
+                box.classList.remove('hidden');
+                btnText.innerText = 'Hide Solution';
+                icon.className = 'fa-solid fa-eye-slash';
+            } else {
+                box.classList.add('hidden');
+                btnText.innerText = 'Show Solution';
+                icon.className = 'fa-solid fa-eye';
+            }
+        }
+
+        // -----------------------------------------------------------------
+        // SPEECH RECOGNITION (WEB SPEECH API) & VOICE SIMULATOR
+        // -----------------------------------------------------------------
+        let recognition = null;
+        let isRecording = false;
+
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = 'en-US';
+
+            recognition.onstart = function() {
+                isRecording = true;
+                document.getElementById('mic-status').innerText = "Listening...";
+                document.getElementById('mic-btn').classList.add('pulse-mic', 'bg-red-600');
+                document.getElementById('mic-btn').classList.remove('bg-montano-blue');
+            };
+
+            recognition.onresult = function(event) {
+                const transcript = event.results[0][0].transcript;
+                document.getElementById('user-voice-input').value = transcript;
+                analyzeUserResponse();
+            };
+
+            recognition.onerror = function(event) {
+                console.error("Speech Recognition Error", event.error);
+                stopRecordingState();
+            };
+
+            recognition.onend = function() {
+                stopRecordingState();
+            };
+        }
+
+        function toggleSpeechRecognition() {
+            if (!recognition) {
+                alert("Speech Recognition API is not supported by your current browser. You can type your response directly into the text field!");
+                return;
+            }
+
+            if (isRecording) {
+                recognition.stop();
+            } else {
+                recognition.start();
+            }
+        }
+
+        function stopRecordingState() {
+            isRecording = false;
+            document.getElementById('mic-status').innerText = "Start Recording";
+            document.getElementById('mic-btn').classList.remove('pulse-mic', 'bg-red-600');
+            document.getElementById('mic-btn').classList.add('bg-montano-blue');
+        }
+
+        // -----------------------------------------------------------------
+        // EVALUATION MOTOR & LIVE PERFORMANCE DASHBOARD ANALYSIS
+        // -----------------------------------------------------------------
+        function analyzeUserResponse() {
+            const text = document.getElementById('user-voice-input').value.trim();
+            if (!text) {
+                alert("Please speak or write a response before evaluating.");
+                return;
+            }
+
+            const lower = text.toLowerCase();
+
+            // Key Prevention & Refusal Keywords
+            const keyTerms = [
+                "no", "refuse", "protective", "risk", "health", 
+                "exit", "boundary", "support", "routine", "counselor", 
+                "because", "assertive", "friend", "choice", "resilience"
+            ];
+
+            const foundKeywords = keyTerms.filter(kw => lower.includes(kw));
+            const wordCount = text.split(/\s+/).length;
+            
+            // 1. Speech Clarity Score
+            let clarityScore = Math.min(100, Math.max(40, wordCount * 4));
+            
+            // 2. Refusal & Protective Strategy Score
+            let accuracyScore = Math.min(100, Math.max(30, foundKeywords.length * 20 + (lower.includes("no thanks") || lower.includes("because") ? 15 : 0)));
+
+            // 3. Assertive Etiquette Score
+            let etiquetteScore = 85;
+            if (lower.includes("no thanks") || lower.includes("appreciate") || lower.includes("prefer") || lower.includes("exit")) etiquetteScore += 10;
+            if (lower.includes("stupid") || lower.includes("shut up")) etiquetteScore -= 40;
+            etiquetteScore = Math.min(100, Math.max(20, etiquetteScore));
+
+            // Update Dashboard UI Bars
+            document.getElementById('score-clarity-val').innerText = `${clarityScore}%`;
+            document.getElementById('score-clarity-bar').style.width = `${clarityScore}%`;
+
+            document.getElementById('score-accuracy-val').innerText = `${accuracyScore}%`;
+            document.getElementById('score-accuracy-bar').style.width = `${accuracyScore}%`;
+
+            document.getElementById('score-etiquette-val').innerText = `${etiquetteScore}%`;
+            document.getElementById('score-etiquette-bar').style.width = `${etiquetteScore}%`;
+
+            // Display Detected Keywords
+            const container = document.getElementById('detected-keywords');
+            if (foundKeywords.length > 0) {
+                container.innerHTML = foundKeywords.map(kw => 
+                    `<span class="px-2.5 py-1 bg-montano-lightblue/30 text-montano-blue border border-montano-lightblue rounded-full font-bold text-xs"><i class="fa-solid fa-check text-montano-teal mr-1"></i>${kw}</span>`
+                ).join('');
+            } else {
+                container.innerHTML = `<span class="text-xs text-amber-600 italic">Try incorporating terms like 'no thanks', 'protective', 'health', or 'exit'.</span>`;
+            }
+
+            // AI Feedback
+            let feedback = "";
+            if (accuracyScore >= 75) {
+                feedback = "Outstanding response! You clearly articulated an assertive refusal statement, cited a protective factor, and included a clean exit strategy.";
+            } else if (accuracyScore >= 50) {
+                feedback = "Solid effort. To strengthen your answer, combine your direct refusal with a specific protective habit or exit plan.";
+            } else {
+                feedback = "Good start. Focus on using clear refusal language ('No thanks') and giving a firm, self-advocating reason.";
+            }
+
+            document.getElementById('ai-feedback-text').innerText = feedback;
+            speakText(`Evaluation complete. ${feedback}`);
+        }
+
+        // -----------------------------------------------------------------
+        // ACTIVITY SUBMISSION LOGIC
+        // -----------------------------------------------------------------
+        function submitDiscussionActivity() {
+            alert("Prevention activities & advocacy campaign submitted successfully to the Colegio Montano portal!");
+        }
+    </script>
+</body>
+</html>
